@@ -11,5 +11,6 @@
 #  updated_at  :datetime         not null
 #
 class Task < ApplicationRecord
+  # Para decirle a rais que este modelo(task) pertenece a solo una categoria.
   belongs_to :category
 end

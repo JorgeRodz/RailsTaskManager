@@ -9,5 +9,6 @@
 #  updated_at  :datetime         not null
 #
 class Category < ApplicationRecord
+  # Para decirle a rails que este modelo(category) puede tener muchas task(tareas)
   has_many :tasks
 end
