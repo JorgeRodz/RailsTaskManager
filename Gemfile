@@ -28,10 +28,21 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+# ------------------------- gems added -------------------------
+
+# To use the haml syntax but with better peformance
 gem 'hamlit'
+# To create forms using the haml syntax
 gem 'simple_form'
 
+# To create comments in our model of how the table looks like(columns name, type, etc)
 gem 'annotate'
+
+# To translate some english words into spanish
+gem 'rails-i18n'
+
+# To manage users in or app
+gem 'devise'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

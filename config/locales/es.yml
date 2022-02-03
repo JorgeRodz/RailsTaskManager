@@ -1,0 +1,21 @@
+---
+es:
+  categories:
+    form:
+      create_category: Crear categoria
+      description: Descripcion
+      name: Nombre
+    new_categories: Nueva categoria
+  common:
+    back: Atras
+  task:
+    errors:
+      invalid_due_date: La fecha no puede estar en el pasado
+  tasks:
+    form:
+      category: Categoria
+      create_task: Crear tarea
+      description: Descripcion
+      due_date: Fecha de vencimiento
+      name: Nombre
+    new_task: Nueva tarea

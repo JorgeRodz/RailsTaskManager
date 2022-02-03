@@ -11,4 +11,10 @@
 class Category < ApplicationRecord
   # Para decirle a rails que este modelo(category) puede tener muchas task(tareas)
   has_many :tasks
+
+  # validacion para que los inputs no esten vacios.
+  validates :name, :description, presence: true
+
+  # validacion para que cada registro sea unico
+  validates :name, uniqueness: { case_sensitive: false }
 end
