@@ -14,6 +14,8 @@ class Task < ApplicationRecord
   # Para decirle a rais que este modelo(task) pertenece a solo una categoria.
   belongs_to :category
 
+  belongs_to :owner, class_name: "User"
+
    # validacion para que los inputs no esten vacios
    validates :name, :description, presence: true
 
