@@ -17,7 +17,9 @@ class Task < ApplicationRecord
   # ralacion de owner, con el modelo usuarios.
   belongs_to :owner, class_name: "User"
 
+  # relacion con el model Participant donde decimos que una tarea puede tener muchos participantes
   has_many :participating_users, class_name: 'Participant'
+  # relacion con el modelo User , donde decimos que una tarea puede tener muchos participantes, esto lo hacemos pasando como referencia la relacion que esta arriba.
   has_many :participants, thorugh: :participating_users, source: :user
 
   validates :participating_users, presence :true
