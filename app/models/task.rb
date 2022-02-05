@@ -14,7 +14,13 @@ class Task < ApplicationRecord
   # Para decirle a rais que este modelo(task) pertenece a solo una categoria.
   belongs_to :category
 
+  # ralacion de owner, con el modelo usuarios.
   belongs_to :owner, class_name: "User"
+
+  has_many :participating_users, class_name: 'Participant'
+  has_many :participants, thorugh: :participating_users, source: :user
+
+  validates :participating_users, presence :true
 
    # validacion para que los inputs no esten vacios
    validates :name, :description, presence: true

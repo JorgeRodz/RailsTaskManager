@@ -23,6 +23,9 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
 
+    # para decirle a rails que el usuario actual logeado sera el owner de la tarea que esta creando.
+    @task.owner = current_user
+
     respond_to do |format|
       if @task.save
         format.html { redirect_to task_url(@task), notice: "Task was successfully created." }
