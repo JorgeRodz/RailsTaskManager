@@ -41,8 +41,11 @@ gem 'annotate'
 # To translate some english words into spanish
 gem 'rails-i18n'
 
-# To manage users in or app
+# To manage the 'users' features in or app
 gem 'devise'
+
+# To manage nested form in our views
+gem 'cocoon'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
