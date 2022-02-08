@@ -23,22 +23,27 @@ class Task < ApplicationRecord
   has_many :participants, through: :participating_users, source: :user
   # validacion para asegurarnos que el input no este vacio
   validates :participating_users, presence: :true
-  # para agregar/eliminar participantes(user) a la tarea
+  # para agregar/eliminar formularios anidados en la vista.
   accepts_nested_attributes_for :participating_users, allow_destroy: true
 
-   # validacion para que los inputs no esten vacios
-   validates :name, :description, presence: true
+  # validacion para que los inputs no esten vacios
+  validates :name, :description, presence: true
 
-   # validacion para que cada registro sea unico tamnando en cuenta mayusculas y minusculas
-   validates :name, uniqueness: { case_sensitive: false }
+  # validacion para que cada registro sea unico tamnando en cuenta mayusculas y minusculas
+  validates :name, uniqueness: { case_sensitive: false }
 
-   # validacion personalizada para la fecha
-   validate :due_date_validity
+  # para que antes de crear la tarea se agregue un codigo a ella.
+  before_create :create_code
+  def create_code
+    self.code = "#{owner_id}#{Time.now.to_i.to_s(36)}#{SecureRandom.hex(8)}"
+  end
 
-   def due_date_validity
-     return if due_date.blank?
-     return if due_date > Date.today
-     errors.add :due_date, I18n.t('task.errors.invalid_due_date')
-   end
+  # validacion personalizada para la fecha
+  validate :due_date_validity
+  def due_date_validity
+    return if due_date.blank?
+    return if due_date > Date.today
+    errors.add :due_date, I18n.t('task.errors.invalid_due_date')
+  end
 
 end
