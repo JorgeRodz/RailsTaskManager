@@ -32,18 +32,27 @@ class Task < ApplicationRecord
   # validacion para que cada registro sea unico tamnando en cuenta mayusculas y minusculas
   validates :name, uniqueness: { case_sensitive: false }
 
-  # para que antes de crear la tarea se agregue un codigo a ella.
-  before_create :create_code
-  def create_code
-    self.code = "#{owner_id}#{Time.now.to_i.to_s(36)}#{SecureRandom.hex(8)}"
-  end
-
   # validacion personalizada para la fecha
   validate :due_date_validity
   def due_date_validity
     return if due_date.blank?
     return if due_date > Date.today
     errors.add :due_date, I18n.t('task.errors.invalid_due_date')
+  end
+
+  # ------------------------------------------------------
+
+  # para que antes de crear la tarea se agregue un codigo a ella.
+  before_create :create_code
+  def create_code
+    self.code = "#{owner_id}#{Time.now.to_i.to_s(36)}#{SecureRandom.hex(8)}"
+  end
+
+  after_create :send_email
+  def send_email
+    (participants + [owner]).each do |user|
+      ParticipantMailer.with(user: user, task: self).new_task_email.deliver!
+    end
   end
 
 end
