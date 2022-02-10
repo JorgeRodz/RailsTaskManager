@@ -9,13 +9,21 @@
 #  category_id :bigint           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  owner_id    :bigint           not null
+#  code        :string
 #
 class Task < ApplicationRecord
+
+  # ----- ralciones y validacioens -----
+
   # Para decirle a rais que este modelo(task) pertenece a solo una categoria.
   belongs_to :category
 
   # ralacion de owner, con el modelo usuarios.
   belongs_to :owner, class_name: "User"
+
+  # relacion con el modelo note
+  has_many :notes
 
   # relacion con el model Participant donde decimos que una tarea puede tener muchos participantes
   has_many :participating_users, class_name: 'Participant'
@@ -40,7 +48,7 @@ class Task < ApplicationRecord
     errors.add :due_date, I18n.t('task.errors.invalid_due_date')
   end
 
-  # ------------------------------------------------------
+  # ----- callbacks -----
 
   # para que antes de crear la tarea se agregue un codigo a ella.
   before_create :create_code
