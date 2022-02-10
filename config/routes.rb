@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :tasks
+  resources :tasks do
+    resources :notes, only: [:create], controller: 'tasks/notes'
+  end
   resources :categories
 
   # para indicar que se abra el index de Task cuando se accede al directorio raiz en el navegador osea -> localhost:3000
